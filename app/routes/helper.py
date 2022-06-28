@@ -1,6 +1,4 @@
 from flask import abort, make_response
-from ..models.board import Board
-from ..models.card import Card
 
 
 def validate(id, type):
