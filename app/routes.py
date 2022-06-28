@@ -1,4 +1,5 @@
 from crypt import methods
+import re
 from flask import Blueprint, request, jsonify, make_response
 from app import db
 from app.models.board import Board
@@ -13,7 +14,16 @@ card_bp = Blueprint('card_bp', __name__, url_prefix="/cards")
 # CREATE BOARD - "/boards" - POST
 @board_bp.route("", methods = ["POST"])
 def create_board():
-    pass
+    request_body = request.get_json()
+    try:
+        new_board = Board.create(request_body)
+    except KeyError:
+        return make_response({"details": "Invalid data"}), 400
+
+    db.session.add(new_board)
+    db.session.commit()
+
+    return jsonify({"goal": new_board.to_json()}), 201
 
 # READ all boards
 # GET ALL BOARDS - "/boards" - GET
