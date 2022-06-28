@@ -1,4 +1,3 @@
-from pkg_resources import require
 from app import db
 
 
