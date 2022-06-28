@@ -23,3 +23,7 @@ class Card(db.Model):
         if "message" not in request_body:
             return abort(make_response({"message": "Must include message for card in request"}, 400))
         return cls(message=request_body["message"], board_id=board_id, like_count=0)
+
+    # UPDATE Card
+    def update(self, request_body):
+        self.message = request_body["message"]
