@@ -25,6 +25,7 @@ def create_board():
 
     return jsonify({"goal": new_board.to_json()}), 201
 
+
 # READ all boards
 # GET ALL BOARDS - "/boards" - GET
 @board_bp.route("", methods = ["GET"])
@@ -43,11 +44,20 @@ def get_one_board(id):
 
     return jsonify({"board": board.to_json()}), 200
 
+
 # UPDATE cards
-# UPDATE BAORD - "/boards/cards/1" - PUT
-@board_bp.route("/cards/<id>", methods = ["PUT"])
-def update_board():
-    pass
+# UPDATE BAORD - "/boards/1" - PUT
+@board_bp.route("/<id>", methods = ["PUT"])
+def update_board(id):
+    board = validate_board(id)
+    request_body = request.get_json()
+    board.update(request_body)
+
+    db.session.commit()
+
+    return jsonify({"board": board.to_json()}), 200
+
+
 
 # DELETE board
 # UPDATE BAORD - "/boards/1" - DELETE

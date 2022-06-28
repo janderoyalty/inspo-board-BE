@@ -21,3 +21,4 @@ class Board(db.Model):
     # UPDATE BOARD
     def update(self, request_body):
         self.title = request_body["title"]
+        self.owner = request_body["owner"]
