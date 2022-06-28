@@ -29,6 +29,16 @@ def update_card(id):
     return jsonify({"card": card.to_json()}), 200
 
 
+# UPDATE likes for one card:
+@card_bp.route("/<id>/like", methods=["PATCH"])
+def update_likes(id):
+    card = validate_card(id)
+    card.like_count += 1
+    db.session.commit()
+
+    return jsonify({"card": card.to_json()}), 200
+
+
 # DELETE card:
 @card_bp.route("/<id>", methods=["DELETE"])
 def delete_card(id):
