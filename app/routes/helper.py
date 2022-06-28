@@ -3,29 +3,15 @@ from ..models.board import Board
 from ..models.card import Card
 
 
-def validate_board(id):
+def validate(id, type):
     try:
         id = int(id)
     except:
-        return abort(make_response({"message": f"board {id} is invalid"}, 400))
+        return abort(make_response({"message": f"{type} {id} is invalid"}, 400))
 
-    board = Board.query.get(id)
+    instance = type.query.get(id)
 
-    if not board:
-        abort(make_response({"message": f"board {id} not found"}, 404))
+    if not instance:
+        abort(make_response({"message": f"{type} {id} not found"}, 404))
 
-    return board
-
-
-def validate_card(id):
-    try:
-        id = int(id)
-    except:
-        return abort(make_response({"message": f"card {id} is invalid"}, 400))
-
-    card = Card.query.get(id)
-
-    if not card:
-        abort(make_response({"message": f"card {id} not found"}, 400))
-
-    return card
+    return instance

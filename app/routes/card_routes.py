@@ -1,7 +1,7 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify
 from app import db
-from .helper import validate_card
-from app.models.card import Card
+from .helper import validate
+from ..models.card import Card
 
 # Blueprint:
 card_bp = Blueprint('card_bp', __name__, url_prefix="/cards")
@@ -20,7 +20,7 @@ card_bp = Blueprint('card_bp', __name__, url_prefix="/cards")
 
 @card_bp.route("/<id>", methods=["PATCH"])
 def update_card(id):
-    card = validate_card(id)
+    card = validate(id, Card)
     request_body = request.get_json()
     card.update(request_body)
 
@@ -32,7 +32,7 @@ def update_card(id):
 # UPDATE likes for one card:
 @card_bp.route("/<id>/like", methods=["PATCH"])
 def update_likes(id):
-    card = validate_card(id)
+    card = validate(id, Card)
     card.like_count += 1
     db.session.commit()
 
@@ -42,7 +42,7 @@ def update_likes(id):
 # DELETE card:
 @card_bp.route("/<id>", methods=["DELETE"])
 def delete_card(id):
-    card = validate_card(id)
+    card = validate(id, Card)
 
     db.session.delete(card)
     db.session.commit()
