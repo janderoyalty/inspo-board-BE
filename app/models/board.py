@@ -13,7 +13,12 @@ class Board(db.Model):
             "title": self.title,
             "owner": self.owner
         }
-
+    
     @classmethod
     def create(cls, request_body):
         return cls(title=request_body["title"], owner=request_body["owner"])
+
+    # UPDATE BOARD
+    def update(self, request_body):
+        self.title = request_body["title"]
+        self.owner = request_body["owner"]
