@@ -38,8 +38,10 @@ def get_all_boards():
 # READ one board
 # GET ONE BOARDs - "/boards/1" - GET
 @board_bp.route("/<id>", methods = ["GET"])
-def get_one_board():
-    pass
+def get_one_board(id):
+    board = validate_board(id)
+
+    return jsonify({"board": board.to_json()}), 200
 
 # UPDATE cards
 # UPDATE BAORD - "/boards/cards/1" - PUT
