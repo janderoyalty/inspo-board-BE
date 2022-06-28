@@ -62,6 +62,11 @@ def update_board(id):
 # DELETE board
 # UPDATE BAORD - "/boards/1" - DELETE
 @board_bp.route("/<id>", methods = ["DELETE"])
-def delete_board():
-    pass
+def delete_board(id):
+    board = validate_board(id)
+
+    db.session.delete(board)
+    db.session.commit()
+
+    return jsonify({"details": f'Board {id} "{board.title}" successfully deleted'}), 200
 
