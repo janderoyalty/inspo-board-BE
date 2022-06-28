@@ -29,7 +29,11 @@ def create_board():
 # GET ALL BOARDS - "/boards" - GET
 @board_bp.route("", methods = ["GET"])
 def get_all_boards():
-    pass
+    boards = Board.query.all()
+    boards_response = [board.to_json() for board in boards]
+
+    return jsonify(boards_response), 200
+
 
 # READ one board
 # GET ONE BOARDs - "/boards/1" - GET
