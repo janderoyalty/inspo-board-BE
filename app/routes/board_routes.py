@@ -82,7 +82,7 @@ def create_card(board_id):
     return make_response({"card": new_card.to_json()}, 201)
 
 
-# GET ALL cards for 1 board:
+# GET ALL  cards for 1 board:
 @board_bp.route("/<board_id>/cards", methods=["GET"])
 def get_all_cards(board_id):
     board = validate(board_id, Board)

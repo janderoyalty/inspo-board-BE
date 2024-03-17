@@ -29,7 +29,7 @@ def update_card(id):
     return jsonify({"card": card.to_json()}), 200
 
 
-# UPDATE likes for one card:
+# UPDATE  likes for one card:
 @card_bp.route("/<id>/like", methods=["PATCH"])
 def update_likes(id):
     card = validate(id, Card)

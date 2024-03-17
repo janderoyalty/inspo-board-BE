@@ -18,7 +18,7 @@ class Board(db.Model):
     def create(cls, request_body):
         return cls(title=request_body["title"], owner=request_body["owner"])
 
-    # UPDATE BOARD
+    # UPDATE a BOARD
     def update(self, request_body):
         self.title = request_body["title"]
         self.owner = request_body["owner"]

@@ -1,6 +1,6 @@
 from flask import abort, make_response
 
-
+# VALIDATE ID
 def validate(id, type):
     try:
         id = int(id)
